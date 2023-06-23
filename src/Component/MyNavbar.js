@@ -29,7 +29,7 @@ const MyNavbar = () => {
   }, [location.pathname]);
 
   const handleNavbarCollapse = () => {
-    setIsMenuOpen(!isMenuOpen);
+    setIsMenuOpen(!isMenuOpen); 
   };
 
   return (

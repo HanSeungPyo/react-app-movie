@@ -18,4 +18,4 @@ const store = configureStore({
 
 const persistor = persistStore(store); // persistor를 생성하여 스토어와 연결
 
-export { store, persistor };
+export { store, persistor }; 
