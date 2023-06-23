@@ -26,7 +26,7 @@ const Main = () => {
   }
   return (
     <div>
-      <Banner movie={popularMovies?.results[0]}/>
+      <Banner movie={popularMovies.results[0]}/>
       <div className="movie-container">
       <h1>최고 인기 영화</h1>
       <MovieSlide movies={popularMovies} type="main" />

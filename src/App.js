@@ -5,7 +5,7 @@ import Main from './page/Main';
 import Movies from './page/Movies';
 import MovieDetail from './page/MovieDetail';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navber from './Component/Navber';
+import MyNavbar from './Component/MyNavbar';
 import Search from './page/Search';
 import NotFound from './page/NotFound';
 
@@ -20,7 +20,7 @@ import NotFound from './page/NotFound';
 function App() {
   return (
     <div className="app">
-      <Navber/>
+      <MyNavbar/>
       <Routes>
         <Route path="/" element={<Main/>}></Route>
         <Route path="/movie" element={<Movies/>}></Route>
