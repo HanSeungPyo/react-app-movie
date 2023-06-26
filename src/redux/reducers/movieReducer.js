@@ -66,7 +66,18 @@ export const movieSlice = createSlice({
     },
     GET_SEARCH_LIST: (state, action) => {
       const { searchMoviesList, genresList, page } = action.payload;
-      state.searchMoviesList = searchMoviesList;
+
+      if (page === 1) {
+        state.searchMoviesList = searchMoviesList;
+      } else {
+        // 현재 페이지가 1이 아닌 경우,영화 목록 갱신
+        state.searchMoviesList = {
+          ...state.searchMoviesList,
+          ...searchMoviesList,
+          results: [...state.searchMoviesList.results, ...searchMoviesList.results],
+        };
+      }
+
       state.genresList = genresList;
       state.page = page;
       state.loading = false;

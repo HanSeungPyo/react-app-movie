@@ -12,15 +12,22 @@ const Search = () => {
 
  const dispatch = useDispatch();
  const {searchMoviesList, loading, page, genreList} = useSelector(state=>state.movie);  
+ const [initialLoad, setInitialLoad] = useState(true);
  let [query, setQuery] = useSearchParams();
  let keyword = query.get("query");
 
+
+
  useEffect(()=>{
-    dispatch(movieAction.getSearchMovies(keyword, page));
+    dispatch(movieAction.getSearchMovies(keyword, 1));
+    setInitialLoad(true);
   },[keyword])
   
   const fetchMoreMovies = () => {
-    dispatch(movieAction.getSearchMovies(keyword,page + 1));
+    setInitialLoad(false);
+    setTimeout(() => {
+      dispatch(movieAction.getSearchMovies(keyword, page + 1));
+    }, 0);
   }; 
 
   useEffect(()=>{
@@ -35,10 +42,11 @@ const Search = () => {
     };
   }, []);
 
- //loading true 로딩스피너 보여주고 false면 데이터를 보여준다. 
+  //loading true 로딩스피너 보여주고 false면 데이터를 보여준다. 
+  //무한스크롤 시엔 false로 바꾼다.
   //true : 데이터 도착 전
   //false : 데이터 도착 후 또는 에러
-  if(loading){
+  if(loading && initialLoad){
     return <div className="loading"><ClipLoader color="red" loading={loading} size={300} /></div> 
   }
 
