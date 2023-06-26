@@ -27,7 +27,7 @@ const Search = () => {
     setInitialLoad(false);
     setTimeout(() => {
       dispatch(movieAction.getSearchMovies(keyword, page + 1));
-    }, 0);
+    }, 0); 
   }; 
 
   useEffect(()=>{
