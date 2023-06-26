@@ -74,7 +74,7 @@ export const movieSlice = createSlice({
         state.searchMoviesList = {
           ...state.searchMoviesList,
           ...searchMoviesList,
-          results: [...state.searchMoviesList.results, ...searchMoviesList.results],
+          results: [...state.searchMoviesList.results, ...searchMoviesList.results], 
         };
       }
 

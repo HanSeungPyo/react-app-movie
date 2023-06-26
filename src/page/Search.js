@@ -34,7 +34,7 @@ const Search = () => {
     if(page > 1){
       fetchMoreMovies();
     }
-  },[])
+  },[]) 
 
   useEffect(() => {
     return () => {
