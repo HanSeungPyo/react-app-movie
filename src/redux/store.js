@@ -14,6 +14,7 @@ const store = configureStore({
   reducer: {
     movie: persistedReducer, // 지속성이 적용된 리듀서를 사용
   },
+  devTools: false, // Redux 개발자 도구 비활성화
 });
 
 const persistor = persistStore(store); // persistor를 생성하여 스토어와 연결
