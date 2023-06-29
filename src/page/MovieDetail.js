@@ -108,7 +108,7 @@ const MovieDetail = () => {
             </div>  
           </Col>
         </Row>
-        {movieTrailer.results && movieTrailer.results.length != 0 ? 
+        {movieTrailer.results && movieTrailer.results.length !== 0 ? 
         <Row>
           <Col>
           <div className="variant-item mb-20">
@@ -122,7 +122,7 @@ const MovieDetail = () => {
         </Row>
         :""}
 
-         {relationMovies.results && relationMovies.results.length != 0 ? 
+         {relationMovies.results && relationMovies.results.length !== 0 ? 
         <Row>
           <Col className="mb-80">
           <div className="variant-item mb-20">
