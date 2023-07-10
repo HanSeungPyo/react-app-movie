@@ -13,39 +13,30 @@ const Search = () => {
  const dispatch = useDispatch();
  const {searchMoviesList, loading, page, genreList} = useSelector(state=>state.movie);  
  const [initialLoad, setInitialLoad] = useState(true);
- let [query, setQuery] = useSearchParams();
- let keyword = query.get("query");
-
-
+ const [query, setQuery] = useSearchParams();
+ const keyword = query.get("query");
 
  useEffect(()=>{
     dispatch(movieAction.getSearchMovies(keyword, 1));
+  
     setInitialLoad(true);
+  
+    return () => {
+      dispatch(movieAction.resetPage());
+    };
   },[keyword])
   
   const fetchMoreMovies = () => {
     setInitialLoad(false);
-    setTimeout(() => {
-      dispatch(movieAction.getSearchMovies(keyword, page + 1));
-    }, 0); 
+    if(initialLoad == false) dispatch(movieAction.getSearchMovies(keyword, page + 1));
   }; 
 
-  useEffect(()=>{
-    if(page > 1){
-      fetchMoreMovies();
-    }
-  },[]) 
-
-  useEffect(() => {
-    return () => {
-      dispatch(movieAction.resetPage());
-    };
-  }, []);
-
-  //loading true 로딩스피너 보여주고 false면 데이터를 보여준다. 
-  //무한스크롤 시엔 false로 바꾼다.
-  //true : 데이터 도착 전
-  //false : 데이터 도착 후 또는 에러
+  /**
+   * loading true 로딩스피너 보여주고 false면 데이터를 보여준다. 
+   * 무한스크롤 시엔 initialLoad을 false로 바꾼다.
+   * true : 데이터 도착 전
+   * false : 데이터 도착 후 또는 에러
+   */
   if(loading && initialLoad){
     return <div className="loading"><ClipLoader color="red" loading={loading} size={300} /></div> 
   }
@@ -61,24 +52,22 @@ const Search = () => {
           initialLoad={false}
           >
         <Row>
-          
-          {
-           searchMoviesList.results?.length > 0 ?  
-          searchMoviesList.results?.map((item,index)=>
-          <Col lg={3} className="movie-list-col" key={index}>
-            <MovieListCard item={item} key={index}/>
-          </Col>)  
-           : 
-           <Col>
-            <div className="no-data">
-             입력하신 검색어 "{keyword}"(와)과 일치하는 결과가 없습니다.
-             </div>
-           </Col>
-           
-           }
+        {
+          searchMoviesList.results?.length > 0 ?  
+            searchMoviesList.results?.map((item,index)=>
+              <Col lg={3} className="movie-list-col" key={index}>
+                <MovieListCard item={item} key={index}/>
+              </Col>)  
+          : 
+              <Col>
+                <div className="no-data">
+                  입력하신 검색어 "{keyword}"(와)과 일치하는 결과가 없습니다.
+                </div>
+              </Col>
+        }
         </Row>
         </InfiniteScroll>
-      </Container> }
+      </Container>}
     </>
   )
 }
