@@ -20,32 +20,25 @@ const Movies = () => {
   
   useEffect(() => {
     dispatch(movieAction.getMoviesList(page, sortBy, filterGenres));
+   
     setInitialLoad(false);
+
+    return () => {
+      dispatch(movieAction.resetPage());
+    };
   },[])
   
-  //정렬순서 바꿀 시 페이지 초기화
+  //장르, 정렬 순서 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo(0, 0); 
     dispatch(movieAction.getMoviesList(1, sortBy, filterGenres));
-  },[sortBy])
-
-  //장르 선택 시 페이지 초기화
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    dispatch(movieAction.getMoviesList(1, sortBy, filterGenres));
-  },[filterGenres])
-
+  },[sortBy,filterGenres])
 
   const fetchMoreMovies = () => {
     dispatch(movieAction.getMoviesList(page + 1,sortBy, filterGenres));
   }; 
 
-  //언마운트 시 페이지 리셋
-  useEffect(() => {
-    return () => {
-      dispatch(movieAction.resetPage());
-    };
-  }, []);
+
 
   //loading true 로딩스피너 보여주고 false면 데이터를 보여준다. 
   //무한스크롤 시엔 false로 바꾼다.
@@ -64,7 +57,8 @@ const Movies = () => {
         sortTitle={sortTitle} 
         setSearchTitle={setSearchTitle}
         setSortTitle={setSortTitle} 
-        setFilterGenres={setFilterGenres}/>
+        setFilterGenres={setFilterGenres}
+        />
        <Container fluid>
         <InfiniteScroll 
           pageStart={page}
@@ -73,12 +67,12 @@ const Movies = () => {
           loader={<div className="scroll-loading"><ClipLoader color="red" loading={loading} size={200} /></div>}
           initialLoad={false}
           >
-        <Row>
-          {popularMoviesList.results?.map((item,index)=>
-          <Col lg={3} className="movie-list-col" key={index}>
-            <MovieListCard item={item} key={index}/>
-          </Col>)}
-        </Row>
+          <Row>
+            {popularMoviesList.results?.map((item,index)=>
+              <Col lg={3} className="movie-list-col" key={index}>
+                <MovieListCard item={item} key={index}/>
+              </Col>)}
+          </Row>
         </InfiniteScroll>
       </Container>
     </>
