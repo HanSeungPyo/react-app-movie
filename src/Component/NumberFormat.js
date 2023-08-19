@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-//숫자콤마 컴포넌트
-const NumberFormat = ({value}) => {
-  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-}
+// 숫자 콤마 컴포넌트
+const NumberFormat = ({ value }) => {
+  return value.toLocaleString(); 
+};
 
-export default NumberFormat
+export default NumberFormat;
