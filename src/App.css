@@ -714,3 +714,12 @@ body {
   }
   
 }
+
+
+.trailer-backdrop .modal-content {
+  border-radius: 20px;  
+}
+
+.modal-body-dark {
+  border-radius: 20px;
+}
